@@ -14,6 +14,9 @@
   ];
 
   networking.hostName = "tsukasa";
+
+  services.sshd.enable = true;
+
   deployment.proxmox.memory = 2048;
 
   services.mangaki = {
@@ -34,7 +37,7 @@
     "blas" "mkl" "lapack"
   ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
 
   system.stateVersion = "21.03";
 }
