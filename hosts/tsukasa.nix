@@ -1,11 +1,11 @@
-{ pkgs, inputs, modulesPath, profilesPath, ... }: {
+{ pkgs, modulesPath, ... }: {
   imports = [
-    inputs.mangaki.nixosModules.mangaki
-    ({ ... }: {
-      nixpkgs.overlays = [ inputs.mangaki.overlay ];
-    })
-    "${profilesPath}/proxmox.nix"
-    "${profilesPath}/staff.nix"
+    # inputs.mangaki.nixosModules.mangaki
+    # ({ ... }: {
+    #  nixpkgs.overlays = [ inputs.mangaki.overlay ];
+    # })
+    # "${profilesPath}/proxmox.nix"
+    # "${profilesPath}/staff.nix"
     # "${modulesPath}/profiles/qemu-guest.nix"
     # "${profilesPath}/proxmox.nix"
     # "${profilesPath}/dns.nix"
@@ -16,14 +16,14 @@
 
   deployment.proxmox.memory = 2048;
 
-  services.mangaki = {
-    enable = true;
-    useTLS = true;
-    devMode = false;
-    domainName = "mangaki.v6.lahfa.xyz";
-    staticRoot = pkgs.mangaki.static;
-    envPackage = pkgs.mangaki.env;
-  };
+  # services.mangaki = {
+  #  enable = true;
+  #  useTLS = true;
+  #  devMode = false;
+  #  domainName = "mangaki.v6.lahfa.xyz";
+  #  staticRoot = pkgs.mangaki.static;
+  #  envPackage = pkgs.mangaki.env;
+  #};
 
   environment.systemPackages = with pkgs; [
     kitty.terminfo

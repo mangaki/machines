@@ -18,20 +18,20 @@
 
   outputs = flakes @ { self, nixpkgs, nixos, nixos-unstable, dns, mangaki, simple-nixos-mailserver }: 
   let
-    lib = flakes.nixos.lib.extend (final: prev: {
-      nixosSystem = { ... }@args: args // prev.nixosSystems {
+    lib = flakes.nixpkgs.lib.extend (final: prev: {
+      nixosSystem = { ... }@args: prev.nixosSystem (args // {
         specialArgs = args.specialArgs // {
           inputs = flakes;
           profilesPath = toString "${self}/profiles";
         };
 
         modules = args.modules ++ builtins.attrValues self.nixosModules;
-      };
-    } // (import ./lib.nix));
+      });
+    } // (import ./lib.nix final prev));
   in
   {
     nixosModules = lib.importDir ./modules;
-    nixopsConfiguration.default = { inherit nixpkgs; } //
+    nixopsConfigurations.default = { nixpkgs = nixpkgs // { inherit lib; }; } //
     (import ./network.nix flakes);
   };
 }
