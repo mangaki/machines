@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixos";
     };
     mangaki = {
-      url = "github:mangaki/mangaki";
+      url = "github:mangaki/mangaki/raito-nixos";
       inputs.nixpkgs.follows = "nixos";
     };
     simple-nixos-mailserver = {
@@ -25,13 +25,13 @@
           profilesPath = toString "${self}/profiles";
         };
 
-        modules = args.modules ++ builtins.attrValues = self.nixosModules;
-      }
+        modules = args.modules ++ builtins.attrValues self.nixosModules;
+      };
     } // (import ./lib.nix));
   in
   {
     nixosModules = lib.importDir ./modules;
     nixopsConfiguration.default = { inherit nixpkgs; } //
     (import ./network.nix flakes);
-  }
+  };
 }

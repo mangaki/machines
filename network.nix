@@ -1,5 +1,6 @@
 flakes:
 {
+  network.description = "Mangaki's NixOps machines description";
   defaults = {
     security.acme.acceptTerms = true;
     security.acme.email = "ryan@mangaki.fr";
