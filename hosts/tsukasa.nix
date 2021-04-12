@@ -34,5 +34,7 @@
     "blas" "mkl" "lapack"
   ];
 
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
   system.stateVersion = "21.03";
 }
