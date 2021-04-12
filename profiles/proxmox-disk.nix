@@ -13,7 +13,7 @@ in
     "/" = {
       device = "/dev/sda2";
       fsType = "btrfs";
-      options = [ "subvol=root" "ssd" "compress=zstd" "discard" "space_cache" "noatime" ];
+      options = [  "compress=zstd" "discard" "space_cache" "noatime" ];
     };
     "/boot" = {
       device = "/dev/sda1";
@@ -41,12 +41,7 @@ in
     mkswap /dev/sda3 -L nixswap
     swapon /dev/sda3
 
-    MOUNTDIR=$(mktemp -d)
-    mount -t btrfs -o defaults,ssd,compress=zstd /dev/sda2 $MOUNTDIR
-
-    ${mkSubvolume "$MOUNTDIR" "root"}
-    umount -R $MOUNTDIR
-    mount -t btrfs -o defaults,ssd,compress=zstd,subvol=root /dev/sda2 /mnt
+    mount -t btrfs -o defaults,compress=zstd /dev/sda2 /mnt
 
     mkdir -p /mnt/boot
     mount /dev/sda1 /mnt/boot

@@ -20,7 +20,7 @@
   let
     lib = flakes.nixpkgs.lib.extend (final: prev: {
       nixosSystem = { ... }@args: prev.nixosSystem (args // {
-        specialArgs = args.specialArgs // {
+        specialArgs = (args.specialArgs or {}) // {
           inputs = flakes;
           profilesPath = toString "${self}/profiles";
         };
