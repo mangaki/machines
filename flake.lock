@@ -60,11 +60,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1618325708,
-        "narHash": "sha256-pKtqwRmpcXqPsuP2J4mk9ZrL9QqEoWY1djO3tASJ4fU=",
+        "lastModified": 1618325812,
+        "narHash": "sha256-paepVE/8zlk/86A/u1Wl1aAvbGLsXGmMhzDWxZATv3o=",
         "owner": "mangaki",
         "repo": "mangaki",
-        "rev": "ea1e96e6fed6631f336dbad08a45bcd12748e17b",
+        "rev": "0b18cf4e82e2bf0ed8a361c6a3c23f7c2be15619",
         "type": "github"
       },
       "original": {
