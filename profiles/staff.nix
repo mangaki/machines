@@ -3,7 +3,7 @@
   users.users.raito = {
     isNormalUser = true;
     extraGroups = [ "wheels" ];
-    openssh.authorizedKeyFiles = [ ./raito.keys ];
+    openssh.authorizedKeys.keyFiles = [ ./raito.keys ];
     initialPassword = "changemechangeme";
   };
 }
