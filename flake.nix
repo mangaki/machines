@@ -39,6 +39,7 @@
         in
         with pkgSet;
         mkShell {
+          NIXOPS_STATE = "mangaki.nixops";
           buildInputs = [
             nixopsUnstable
           ];
