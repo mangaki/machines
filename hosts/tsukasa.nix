@@ -1,10 +1,8 @@
 { pkgs, inputs, profilesPath, modulesPath, lib, ... }: {
   imports = [
     inputs.mangaki.nixosModules.mangaki
-    ({ ... }: {
-     nixpkgs.overlays = [ inputs.mangaki.overlay ];
-    })
-    "${profilesPath}/proxmox.nix"
+    ({ ... }: { nixpkgs.overlays = [ inputs.mangaki.overlay ]; })
+    "${profilesPath}/scaleway.nix"
     "${profilesPath}/staff.nix"
     # "${modulesPath}/profiles/qemu-guest.nix"
     # "${profilesPath}/dns.nix"
@@ -17,27 +15,24 @@
 
   services.sshd.enable = true;
 
-  deployment.proxmox.memory = 2048;
-
   services.mangaki = {
-   enable = true;
-   useTLS = true;
-   useACME = true;
-   devMode = false;
-   domainName = "mangaki.v6.lahfa.xyz";
-   staticRoot = pkgs.mangaki.static;
-   envPackage = pkgs.mangaki.env;
- };
+    enable = true;
+    useTLS = true;
+    useACME = true;
+    devMode = false;
+    domainName = "beta.mangaki.fr";
+    staticRoot = pkgs.mangaki.static;
+    envPackage = pkgs.mangaki.env;
+  };
 
-  environment.systemPackages = with pkgs; [
-    kitty.terminfo
-  ];
+  deployment.targetHost = "beta.mangaki.fr";
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "blas" "mkl" "lapack"
-  ];
+  environment.systemPackages = with pkgs; [ kitty.terminfo ];
+
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [ "blas" "mkl" "lapack" ];
 
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
 
-  system.stateVersion = "21.03";
+  system.stateVersion = "21.05";
 }

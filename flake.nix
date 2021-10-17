@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixos.url = "flake:nixpkgs/nixos-20.09";
+    nixos.url = "flake:nixpkgs/nixos-21.05";
     nixos-unstable.url = "flake:nixpkgs/nixos-unstable";
     dns = {
       url = "github:kirelagin/nix-dns";
@@ -28,8 +28,22 @@
         modules = args.modules ++ builtins.attrValues self.nixosModules;
       });
     } // (import ./lib.nix final prev));
+    supportedSystems = [ "x86_64-linux" ];
+    forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+    nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
   in
   {
+    devShell = forAllSystems (system:
+        let
+          pkgSet = nixpkgsFor.${system};
+        in
+        with pkgSet;
+        mkShell {
+          buildInputs = [
+            nixopsUnstable
+          ];
+        });
+
     nixosModules = lib.importDir ./modules;
     nixopsConfigurations.default = { nixpkgs = nixpkgs // { inherit lib; }; } //
     (import ./network.nix flakes);
