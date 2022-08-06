@@ -1,7 +1,7 @@
-{ pkgs, inputs, profilesPath, modulesPath, lib, ... }: {
+{ config, pkgs, inputs, profilesPath, modulesPath, lib, ... }: {
   imports = [
     inputs.mangaki.nixosModules.mangaki
-    ({ ... }: { nixpkgs.overlays = [ inputs.mangaki.overlay ]; })
+    ({ ... }: { nixpkgs.overlays = [ inputs.mangaki.overlays.default ]; })
     "${profilesPath}/scaleway.nix"
     "${profilesPath}/staff.nix"
     # "${modulesPath}/profiles/qemu-guest.nix"
@@ -15,6 +15,8 @@
 
   services.sshd.enable = true;
 
+  age.secrets.beta-mangaki-secret-file.file = ../secrets/beta-mangaki-secret-file.age;
+
   services.mangaki = {
     enable = true;
     useTLS = true;
@@ -23,6 +25,9 @@
     domainName = "beta.mangaki.fr";
     staticRoot = pkgs.mangaki.static;
     envPackage = pkgs.mangaki.env;
+
+    settings.secrets.SECRET_KEY = "bullshit";  # FIXME: fix it in master
+    settings.secrets.SECRET_FILE = config.age.secrets.beta-mangaki-secret-file.path;
   };
 
   deployment.targetHost = "beta.mangaki.fr";

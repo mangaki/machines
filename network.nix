@@ -1,6 +1,9 @@
 flakes:
 {
   network.description = "Mangaki's NixOps machines description";
+  network.storage.legacy = {
+    databasefile = "./mangaki.nixops";
+  };
   defaults = {
     security.acme.acceptTerms = true;
     security.acme.email = "ryan@mangaki.fr";

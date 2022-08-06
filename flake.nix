@@ -1,22 +1,19 @@
 {
   inputs = {
-    nixos.url = "flake:nixpkgs/nixos-21.05";
+    nixos.url = "flake:nixpkgs/nixos-22.05";
     nixos-unstable.url = "flake:nixpkgs/nixos-unstable";
     dns = {
       url = "github:kirelagin/nix-dns";
       inputs.nixpkgs.follows = "nixos";
     };
     mangaki = {
-      url = "github:mangaki/mangaki/raito-nixos";
+      url = "github:mangaki/mangaki";
       inputs.nixpkgs.follows = "nixos";
     };
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-      inputs.nixpkgs.follows = "nixos";
-    };
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = flakes @ { self, nixpkgs, nixos, nixos-unstable, dns, mangaki, simple-nixos-mailserver }: 
+  outputs = flakes @ { self, nixpkgs, nixos, nixos-unstable, dns, mangaki, agenix }: 
   let
     lib = flakes.nixpkgs.lib.extend (final: prev: {
       nixosSystem = { ... }@args: prev.nixosSystem (args // {
@@ -25,7 +22,7 @@
           profilesPath = toString "${self}/profiles";
         };
 
-        modules = args.modules ++ builtins.attrValues self.nixosModules;
+        modules = args.modules ++ builtins.attrValues self.nixosModules ++ [ agenix.nixosModule ];
       });
     } // (import ./lib.nix final prev));
     supportedSystems = [ "x86_64-linux" ];
@@ -42,6 +39,7 @@
           NIXOPS_STATE = "mangaki.nixops";
           buildInputs = [
             nixopsUnstable
+            agenix.defaultPackage.x86_64-linux
           ];
         });
 
