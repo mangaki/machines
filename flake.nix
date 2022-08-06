@@ -36,7 +36,7 @@
         });
 
     nixosModules = lib.importDir ./modules;
-    nixopsConfigurations.default = { nixpkgs = nixpkgs // { inherit lib; }; } //
+    nixopsConfigurations.default = {}: { nixpkgs = nixpkgs // { inherit lib; }; } //
     (import ./network.nix flakes);
   };
 }
