@@ -11,7 +11,7 @@
 
     imports = [
       ({
-        deployment.targetUser = "raito";
+        # deployment.targetUser = "raito";
         system.configurationRevision = self.rev
           or (throw "Cannot deploy from an unclean source tree!");
         nixpkgs.overlays = [ ];
