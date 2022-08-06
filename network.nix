@@ -1,4 +1,4 @@
-flakes:
+{ self, ... }:
 {
   network.description = "Mangaki's NixOps machines description";
   network.storage.legacy = {
@@ -10,7 +10,7 @@ flakes:
 
     imports = [
       ({
-        system.configurationRevision = flakes.self.rev
+        system.configurationRevision = self.rev
           or (throw "Cannot deploy from an unclean source tree!");
         nixpkgs.overlays = [ ];
       })
