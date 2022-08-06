@@ -6,7 +6,7 @@ flakes:
   };
   defaults = {
     security.acme.acceptTerms = true;
-    security.acme.email = "ryan@mangaki.fr";
+    security.acme.defaults.email = "ryan@mangaki.fr";
 
     imports = [
       ({

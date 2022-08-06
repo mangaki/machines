@@ -1,19 +1,11 @@
 {
   inputs = {
-    nixos.url = "flake:nixpkgs/nixos-22.05";
-    nixos-unstable.url = "flake:nixpkgs/nixos-unstable";
-    dns = {
-      url = "github:kirelagin/nix-dns";
-      inputs.nixpkgs.follows = "nixos";
-    };
-    mangaki = {
-      url = "github:mangaki/mangaki";
-      inputs.nixpkgs.follows = "nixos";
-    };
+    nixpkgs.follows = "mangaki/nixpkgs";
+    mangaki.url = "github:mangaki/mangaki";
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = flakes @ { self, nixpkgs, nixos, nixos-unstable, dns, mangaki, agenix }: 
+  outputs = flakes @ { self, nixpkgs, mangaki, agenix }: 
   let
     lib = flakes.nixpkgs.lib.extend (final: prev: {
       nixosSystem = { ... }@args: prev.nixosSystem (args // {
