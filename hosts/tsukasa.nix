@@ -26,12 +26,22 @@
     staticRoot = pkgs.mangaki.static;
     envPackage = pkgs.mangaki.env;
 
+    # Index is broken for now.
+    runTimersForIndex = false;
+
     settings.secrets.SECRET_KEY = "bullshit";  # FIXME: fix it in master
     settings.secrets.SECRET_FILE = config.age.secrets.beta-mangaki-secret-file.path;
   };
-
+  # We do not have a lot of disk space here.
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+  };
+  services.journald.extraConfig = ''
+    SystemMaxUse=100M
+  '';
+  networking.firewall.logRefusedConnections = false;
   deployment.targetHost = "beta.mangaki.fr";
-
   environment.systemPackages = with pkgs; [ kitty.terminfo ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
