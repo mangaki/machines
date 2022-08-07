@@ -8,7 +8,7 @@
 
     imports = [
       ({
-        deployment.targetUser = "raito";
+        # deployment.targetUser = "raito";
         system.configurationRevision = if (self ? rev) then self.rev else throw "Refusing to deploy from a dirty Git tree, commit your changes!";
         nixpkgs.overlays = [ ];
       })
