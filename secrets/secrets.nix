@@ -3,7 +3,7 @@ let
 
   users = [ raito ];
 
-  beta-mangaki = "";
+  beta-mangaki = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJJ5fi7QFBJ/Yiz7KK+YEXY30Is/5Z6IpeSLCu0W80Yf";
 
   systems = [ beta-mangaki ];
 

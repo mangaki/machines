@@ -29,7 +29,6 @@
     # Index is broken for now.
     lifecycle.runTimersForIndex = false;
 
-    settings.secrets.SECRET_KEY = "bullshit";  # FIXME: fix it in master
     settings.secrets.SECRET_FILE = config.age.secrets.beta-mangaki-secret-file.path;
   };
   # We do not have a lot of disk space here.
