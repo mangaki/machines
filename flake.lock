@@ -56,11 +56,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1659818821,
-        "narHash": "sha256-BpppIlkMzj6kNM+kBdWoQH7RE8XeD7l+8RfYkqU0lKo=",
+        "lastModified": 1659875705,
+        "narHash": "sha256-v5duH6fPvoYlGKYfIHxrpi3NuhkbX0ZfDxN5DFwSWXM=",
         "owner": "mangaki",
         "repo": "mangaki",
-        "rev": "df68649dbe484d871291adf36838dd66f6a4d878",
+        "rev": "a4a03ffbbcf1e958d35934a05aac89306c3c8ab0",
         "type": "github"
       },
       "original": {

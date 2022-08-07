@@ -9,7 +9,8 @@
     imports = [
       ({
         # deployment.targetUser = "raito";
-        system.configurationRevision = if (self ? rev) then self.rev else throw "Refusing to deploy from a dirty Git tree, commit your changes!";
+        # FIXME(Raito): why is this always null
+        system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
         nixpkgs.overlays = [ ];
       })
     ];
